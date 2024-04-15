@@ -1,7 +1,13 @@
 const fetchData = () => {
+  const container = document.getElementById("widget-container");
+
+  const search = container.dataset.search;
+
+  const query = search ? search : "snickare";
+
   fetch(
     "https://jobsearch.api.jobtechdev.se/search?q=" +
-      "snickare" +
+      query +
       "&qfields=location&qfields=occupation&offset=0&limit=100&sort=relevance",
     {
       headers: {
@@ -13,13 +19,13 @@ const fetchData = () => {
     .then((res) => res.json())
     .then((data) => populateTable(data.hits))
     .catch((e) => {
-      console.error(e);
+      // console.error(e);
       alert("An error occured while fetching data.");
     });
 };
 
 const populateTable = (data) => {
-  console.log(data);
+  // console.log(data);
   const tableBody = document.getElementById("table-body");
 
   tableBody.innerHTML = "";
