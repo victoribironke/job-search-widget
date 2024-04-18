@@ -1,17 +1,26 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const container = document.getElementById("widget-container");
-
+  const container = document.getElementById("job-search-widget-container");
+  const previousButton = document.getElementById(
+    "job-search-widget-previous-button"
+  );
+  const nextButton = document.getElementById("job-search-widget-next-button");
+  const paginationText = document.getElementById(
+    "job-search-widget-pagination"
+  );
   const search = container.dataset.search;
-
   const query = search ? search : "snickare";
+  let page = 1;
+  let d;
+  let c;
 
   const populateTable = (data) => {
-    // console.log(data);
-    const tableBody = document.getElementById("table-body");
+    const tableBody = document.getElementById(
+      "job-search-widget-container-table-body"
+    );
 
     tableBody.innerHTML = "";
 
-    data.forEach((item) => {
+    data.slice(page * 5 - 5, page * 5).forEach((item) => {
       const row = document.createElement("tr");
 
       if (data.indexOf(item) % 2 !== 0) {
@@ -31,6 +40,10 @@ document.addEventListener("DOMContentLoaded", () => {
     anchors.forEach((i) => {
       i.href = data[anchors.indexOf(i)].webpage_url;
     });
+
+    paginationText.textContent = `Showing ${page * 5 - 4} to ${
+      c ? (data.length < 5 ? data.length : page * 5) : data.length
+    } of ${data.length} results`;
   };
 
   fetch(
@@ -45,9 +58,29 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   )
     .then((res) => res.json())
-    .then((data) => populateTable(data.hits))
+    .then((data) => {
+      setInterval(() => {
+        d = data.length / 5;
+        c = Number.isInteger(d)
+          ? page !== Math.floor(d)
+          : page !== Math.floor(d) + 1;
+
+        populateTable(data.hits);
+      }, 1000);
+
+      previousButton.addEventListener("click", () => {
+        if (page !== 1) {
+          page -= 1;
+        }
+      });
+      nextButton.addEventListener("click", () => {
+        if (c) {
+          page += 1;
+        }
+      });
+    })
     .catch((e) => {
-      // console.error(e);
+      console.error(e);
       alert("An error occured while fetching data.");
     });
 });

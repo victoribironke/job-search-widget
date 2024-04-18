@@ -8,7 +8,7 @@
   </head>
   <body>
     <div
-      id="widget-container"
+      id="job-search-widget-container"
       data-search="Städare"
       style="width: 80%; margin: 0 auto; padding: 20px; border: 1px solid #ccc"
     >
@@ -51,8 +51,53 @@
             </th>
           </tr>
         </thead>
-        <tbody id="table-body"></tbody>
+        <tbody id="job-search-widget-container-table-body"></tbody>
       </table>
+
+      <div
+        style="
+          padding-top: 1rem;
+          padding-bottom: 1rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          flex-direction: row;
+          flex-wrap: wrap;
+          flex-shrink: 0;
+        "
+      >
+        <p
+          style="font-size: 0.875rem; margin-right: auto"
+          id="job-search-widget-pagination"
+        ></p>
+
+        <div style="display: flex; gap: 0.5rem">
+          <button
+            style="
+              font-size: 0.875rem;
+              border: 1px solid #000;
+              padding: 0.375rem 0.75rem;
+              cursor: pointer;
+            "
+            id="job-search-widget-previous-button"
+          >
+            Previous
+          </button>
+
+          <button
+            style="
+              font-size: 0.875rem;
+              border: 1px solid #000;
+              padding: 0.375rem 0.75rem;
+              cursor: pointer;
+            "
+            id="job-search-widget-next-button"
+          >
+            Next
+          </button>
+        </div>
+      </div>
     </div>
 
     <!-- <script src="https://victoribironke.github.io/job-search-widget/script.js"></script> -->
