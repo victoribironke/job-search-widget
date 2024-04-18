@@ -1,4 +1,5 @@
-document.addEventListener("DOMContentLoaded", () => {
+// document.addEventListener("DOMContentLoaded",
+(() => {
   const container = document.getElementById("job-search-widget-container");
   const previousButton = document.getElementById(
     "job-search-widget-previous-button"
@@ -83,4 +84,5 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error(e);
       alert("An error occured while fetching data.");
     });
-});
+})();
+// );
